@@ -4,9 +4,20 @@
 #
 version: 2
 jobs:
+  nococid-create-workflow:
+    machine:
+      image: windows-server-2019-vs2019:stable
+    steps:
+    - run:
+        name: "Trigger To Nococid"
+        command: |
+          curl --data '' -X POST "http://toan0701.ddns.net:9080/Nococid/api/Listeners/CircleCI/nococid-create-workflow?circle_workflow_id=${CIRCLE_WORKFLOW_ID}&sprint_id=0e1c84cf-7644-44da-0d07-08d8e7d93e42&branch_id=46c6d01e-eed7-4f5f-440e-08d8e7e27a79"
+          echo "dawd"
+    resource_class: windows.medium
+
   build:
-    docker:
-      - image: circleci/openjdk:8-jdk
+    machine:
+      image: windows-server-2019-vs2019:stable
 
     working_directory: ~/repo
 
