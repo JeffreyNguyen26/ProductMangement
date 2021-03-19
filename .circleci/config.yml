@@ -9,6 +9,14 @@ jobs:
 
     steps:
       - checkout
+  
+  test:
+    machine:
+      image: windows-server-2019-vs2019:stable
+      
+    resource_class: windows.medium
+    steps:
+      - checkout
       - run: mkdir test-reports
       - run:
           name: Download Selenium
@@ -17,5 +25,16 @@ jobs:
           name: Start Selenium
           command: java -jar selenium-server-standalone-3.5.3.jar -log test-reports/selenium.log
           background: true
-      - store_test_results:
-          path: test-results
+
+    store_test_results:
+        path: test-results
+
+
+workflows:
+  version: 2
+  workflow:
+    jobs:
+      - build
+      - test:
+          requires:
+            - build
