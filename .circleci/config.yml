@@ -17,17 +17,15 @@ jobs:
     resource_class: windows.medium
     steps:
       - checkout
-      - run: mkdir test-reports
       - run:
-          name: Download Selenium
-          command: curl -O http://selenium-release.storage.googleapis.com/3.5/selenium-server-standalone-3.5.3.jar
-      - run:
-          name: Start Selenium
-          command: java -jar selenium-server-standalone-3.5.3.jar -log test-reports/selenium.log
-          background: true
+          name: Save test results
+          command: |
+            mkdir -p ~/test-results/junit/
+            find . -type f -regex ".*/target/surefire-reports/.*xml" -exec cp {} ~/test-results/junit/ \;
+          when: always
 
-    store_test_results:
-        path: test-results
+      - store_test_results:
+          path: test-results
 
 
 workflows:
