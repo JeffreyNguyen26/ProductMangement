@@ -5,10 +5,6 @@ jobs:
     machine:
       image: windows-server-2019-nvidia:stable
 
-    environment:
-      # Customize the JVM maximum heap limit
-      JVM_OPTS: -Xmx3200m
-      TERM: dumb
 
     steps:
       - checkout
