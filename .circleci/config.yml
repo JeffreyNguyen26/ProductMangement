@@ -1,10 +1,9 @@
 version: 2
+
 jobs:
   build:
-    docker:
-      - image: circleci/openjdk:8-jdk
-
-    working_directory: ~/repo
+    machine:
+      image: windows-server-2019-nvidia:stable
 
     environment:
       # Customize the JVM maximum heap limit
